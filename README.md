@@ -20,15 +20,9 @@ Turn exported chat logs into cinematic memoirs with customizable tone, chaptered
 
 ## Screenshots
 
-Place the provided images at:
-
-- `docs/assets/setup-screen.png`
-- `docs/assets/loading-screen.png`
-
-Then these render in GitHub automatically:
+Setup scene:
 
 ![Katha Setup](docs/assets/setup-screen.png)
-![Katha Loading](docs/assets/loading-screen.png)
 
 ## Tech Stack
 
