@@ -24,7 +24,7 @@ Setup scene:
 
 ![Katha Setup](docs/assets/setup-screen.png)
 
-## Tech Stack
+## Stack
 
 - Next.js 16 (App Router)
 - React 19
@@ -33,27 +33,67 @@ Setup scene:
 - GSAP + Anime.js
 - jsPDF
 
-## Project Structure
+## Architecture
 
 ```text
-frontend/
-  src/
-    app/
-    components/
-  public/
-  docs/
-    assets/
-  .github/
+katha/
+  backend/    # FastAPI story + translation + TTS service
+  frontend/   # Next.js app (this repo)
 ```
 
-## Local Setup
+## Prerequisites
+
+- Node.js 20+
+- npm 10+
+- Python 3.10+
+- API key for at least one LLM provider (`DeepSeek`, `OpenAI`, `Anthropic`, or `Gemini`)
+- Optional: `SARVAM_API_KEY` for translation + speech
+
+## Quick Start
+
+### 1. Clone and install frontend
 
 ```bash
+git clone https://github.com/Ayush-e4/katha.git
+cd katha
 npm install
+```
+
+### 2. Configure backend environment
+
+Create `../backend/.env` using [docs/backend.env.example](docs/backend.env.example):
+
+```env
+DEEPSEEK_API_KEY=
+OPENAI_API_KEY=
+ANTHROPIC_API_KEY=
+GEMINI_API_KEY=
+SARVAM_API_KEY=
+
+DEFAULT_LLM_PROVIDER=deepseek
+DEFAULT_LLM_MODEL=
+
+SARVAM_TRANSLATE_URL=https://api.sarvam.ai/translate
+SARVAM_TTS_URL=https://api.sarvam.ai/text-to-speech
+SARVAM_DEFAULT_SPEAKER=priya
+```
+
+### 3. Start backend (from sibling `backend` folder)
+
+```bash
+cd ../backend
+python -m pip install fastapi uvicorn python-multipart requests python-dotenv
+uvicorn main:app --host 127.0.0.1 --port 8000 --reload
+```
+
+### 4. Start frontend (this repo)
+
+```bash
+cd ../frontend
 npm run dev
 ```
 
-Runs at `http://localhost:3000`.
+App URL: `http://localhost:3000`
 
 ## Backend Contract
 
@@ -64,7 +104,16 @@ Frontend expects backend at `http://127.0.0.1:8000` with:
 - `POST /api/sarvam/translate`
 - `POST /api/sarvam/tts`
 
-See [docs/backend.env.example](docs/backend.env.example) for backend environment variables.
+## How to Use
+
+1. Upload a WhatsApp `.txt` export.
+2. Select format, tone, output length, and language.
+3. Click `Begin Reconstruction`.
+4. After generation, read chapters in the carousel.
+5. Optionally:
+   - Download PDF
+   - Speak text aloud
+   - Download generated audio
 
 ## Quality Checks
 
@@ -72,6 +121,25 @@ See [docs/backend.env.example](docs/backend.env.example) for backend environment
 npm run lint
 npm run build
 ```
+
+## Troubleshooting
+
+- Translation/TTS returns `502`:
+  - confirm `SARVAM_API_KEY` is set in backend `.env`
+  - confirm backend is running on `127.0.0.1:8000`
+- Translation says invalid language:
+  - keep source as English base and choose target from app dropdown
+- "Speak" fails for some voices:
+  - use backend default speaker from `SARVAM_DEFAULT_SPEAKER` (currently `priya`)
+- Frontend loads but generation fails:
+  - check backend logs for provider key errors
+
+## Scripts
+
+- `npm run dev` - start local dev server
+- `npm run lint` - run ESLint
+- `npm run build` - production build
+- `npm run start` - serve production build
 
 ## Open Source
 
