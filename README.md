@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# katha
 
-## Getting Started
+[![CI Workflow](https://img.shields.io/badge/CI-GitHub%20Actions-181717?logo=github)](./.github/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
 
-First, run the development server:
+**कथा**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Turn exported chat logs into cinematic memoirs with customizable tone, chaptered output, translation, and text-to-speech.
+
+## Features
+
+- Nostalgic two-scene flow: setup -> generation -> chapter carousel
+- Narrative formats: `memoir`, `letter`, `timeline`
+- Output length presets up to 2000 words
+- Tone presets for emotional style control
+- Sarvam-powered translation and TTS
+- PDF export and audio download
+
+## Screenshots
+
+Place the provided images at:
+
+- `docs/assets/setup-screen.png`
+- `docs/assets/loading-screen.png`
+
+Then these render in GitHub automatically:
+
+![Katha Setup](docs/assets/setup-screen.png)
+![Katha Loading](docs/assets/loading-screen.png)
+
+## Tech Stack
+
+- Next.js 16 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- GSAP + Anime.js
+- jsPDF
+
+## Project Structure
+
+```text
+frontend/
+  src/
+    app/
+    components/
+  public/
+  docs/
+    assets/
+  .github/
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Local Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Runs at `http://localhost:3000`.
 
-## Learn More
+## Backend Contract
 
-To learn more about Next.js, take a look at the following resources:
+Frontend expects backend at `http://127.0.0.1:8000` with:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `POST /api/generate-story`
+- `GET /api/capabilities`
+- `POST /api/sarvam/translate`
+- `POST /api/sarvam/tts`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+See [docs/backend.env.example](docs/backend.env.example) for backend environment variables.
 
-## Deploy on Vercel
+## Quality Checks
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run lint
+npm run build
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Open Source
+
+- [MIT License](LICENSE)
+- [Contributing Guide](CONTRIBUTING.md)
+- [Code of Conduct](CODE_OF_CONDUCT.md)
+- [Security Policy](SECURITY.md)

@@ -1,26 +1,90 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #efe3d2;
+  --foreground: #2d241d;
+  --paper: #f6ede0;
+  --ink-soft: #5e4d40;
+  --accent-fade: #7a3f33;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-body);
+  --font-serif: var(--font-display);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #efe3d2;
+    --foreground: #2d241d;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), serif;
+}
+
+.font-cursive {
+  font-family: var(--font-cursive), cursive;
+}
+
+.paper-grain {
+  position: relative;
+}
+
+.paper-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.2;
+  mix-blend-mode: multiply;
+  background-image: radial-gradient(rgba(70, 50, 40, 0.08) 0.7px, transparent 0.7px);
+  background-size: 3px 3px;
+}
+
+.flicker-overlay {
+  animation: flicker 8s linear infinite;
+}
+
+.type-cursor {
+  display: inline-block;
+  width: 0.55rem;
+  height: 1.1rem;
+  margin-left: 0.2rem;
+  background: #4e3b2c;
+  animation: blink 1s steps(2, start) infinite;
+}
+
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+@keyframes flicker {
+  0%, 100% {
+    opacity: 0.06;
+  }
+  8% {
+    opacity: 0.11;
+  }
+  18% {
+    opacity: 0.07;
+  }
+  36% {
+    opacity: 0.14;
+  }
+  64% {
+    opacity: 0.08;
+  }
+  84% {
+    opacity: 0.12;
+  }
 }
