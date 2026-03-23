@@ -85,3 +85,5 @@ npm run build
 - [Contributing Guide](CONTRIBUTING.md)
 - [Code of Conduct](CODE_OF_CONDUCT.md)
 - [Security Policy](SECURITY.md)
+- [Changelog](CHANGELOG.md)
+- [Release Checklist](docs/RELEASE_CHECKLIST.md)
